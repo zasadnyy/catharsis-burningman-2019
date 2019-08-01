@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.env.osx": {
+        "PATH": "/Users/vitalik/.platformio/penv/bin:/Users/vitalik/.platformio/penv:/Users/vitalik/.sdkman/candidates/groovy/current/bin:/Users/vitalik/.sdkman/candidates/gradle/current/bin:/Users/vitalik/.rvm/gems/ruby-2.3.0/bin:/Users/vitalik/.rvm/gems/ruby-2.3.0@global/bin:/Users/vitalik/.rvm/rubies/ruby-2.3.0/bin:/usr/local/bin:/usr/local/sbin:/Users/vitalik/npm/bin:/Users/vitalik/npm/lib:/Users/vitalik/Library/Android/sdk/tools:/Users/vitalik/Library/Android/sdk/platform-tools:/Users/vitalik/dev/tools/apktool:/Users/vitalik/google-cloud-sdk/bin:/Users/vitalik/dev/tools/infer-osx-v0.1.0/infer/infer/bin:/Users/vitalik/dev/tools/bin:/Users/vitalik/.sdkman:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Wireshark.app/Contents/MacOS:/Users/vitalik/.rvm/bin:/Users/vitalik/.yadr/bin:/Users/vitalik/.yadr/bin/yadr:/Users/vitalik/.rvm/bin",
+        "PLATFORMIO_CALLER": "vscode"
+    }
+}
