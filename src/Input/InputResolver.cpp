@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <cmath>
 #include "Input/InputResolver.h"
-#include "Utils/Log.h"
+#include "Utils/LedUtils.h"
 
 namespace Catharsis
 {
@@ -40,7 +40,7 @@ void InputResolver::updateContext(Input input, Context *context)
         break;
     }
     default:
-        log("Not implemented: ");
+        Serial.println("Not implemented");
         break;
     }
 }
@@ -65,12 +65,8 @@ void InputResolver::changeMenuValue(Context *context, int8_t increment)
             newIndex = 0;
         }
         context->currentAnimation = newIndex;
-        
-        // Reset all LEDs to black. TODO move to utils
-        for (int i = 0; i < NUM_LEDS_PER_STRIP * NUM_STRIPS; i++) {
-            context->leds[i] = CRGB::Black;
-        }
-        
+        clearLeds(context);
+
         break;
     }
     case MENU_BRIGHTNESS:

@@ -10,7 +10,7 @@
 #include "Animations/RainbowAnimation.h"
 #include "Animations/LineNumbersAnimation.h"
 #include "Animations/FireAnimation.h"
-#include "Animations/TmpAnimation.h"
+#include "Animations/PlasmaAnimation.h"
 
 #include "Input/InputResolver.h"
 #include "Input/SerialInput.h"
@@ -25,8 +25,8 @@ using namespace Catharsis;
 
 Context context;
 Animation *animations[] = {
-    new TmpAnimation(),
     new Animation(),
+    new PlasmaAnimation(),
     new RainbowAnimation(),
     new LineNumbersAnimation(),
     new FireAnimation()};
@@ -77,7 +77,6 @@ void loop()
     // RENDER ANIMATION
     // ---------------------------------------------------
 
-    
     uint16_t updateIntervalMs = 1000 / context.fps;
     uint32_t now = millis();
     static uint32_t lastUpdate = now;

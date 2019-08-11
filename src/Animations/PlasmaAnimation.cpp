@@ -1,25 +1,13 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-#include "Animations/TmpAnimation.h"
+#include "Animations/PlasmaAnimation.h"
 
 namespace Catharsis
 {
-TmpAnimation::TmpAnimation()
+PlasmaAnimation::PlasmaAnimation()
 {
 }
-
-//OctoWS2811 Defn. Stuff
-#define COLS_LEDs 15 // all of the following params need to be adjusted for screen size
-#define ROWS_LEDs 8  // LED_LAYOUT assumed 0 if ROWS_LEDs > 8
-#define LEDS_PER_STRIP (COLS_LEDs * (ROWS_LEDs / 8))
-
-// DMAMEM int displayMemory[LEDS_PER_STRIP * 6];
-
-// int drawingMemory[LEDS_PER_STRIP * 6];
-// const int config = WS2811_GRB | WS2811_800kHz;
-
-// OctoWS2811 leds(LEDS_PER_STRIP, displayMemory, drawingMemory, config);
 
 //Byte val 2PI Cosine Wave, offset by 1 PI
 //supports fast trig calcs and smooth LED fading/pulsing.
@@ -47,7 +35,7 @@ uint8_t const exp_gamma[256] PROGMEM =
      177, 179, 181, 183, 185, 187, 190, 192, 194, 196, 198, 200, 202, 204, 207, 209, 211, 213, 216, 218, 220, 222, 225,
      227, 229, 232, 234, 236, 239, 241, 244, 246, 249, 251, 253, 254, 255};
 
-void TmpAnimation::setup()
+void PlasmaAnimation::setup()
 {
 }
 
@@ -59,46 +47,42 @@ inline uint8_t fastCosineCalc(uint16_t preWrapVal)
     return (pgm_read_byte_near(cos_wave + wrapVal));
 }
 
-void TmpAnimation::loop(Context *context)
+void PlasmaAnimation::loop(Context *context)
 {
     static unsigned long frameCount = 25500; // arbitrary seed to calculate the three time displacement variables t,t2,t3
-    // while (1)
-    // {
-        frameCount++;
-        uint16_t t = fastCosineCalc((42 * frameCount) / 100); //time displacement - fiddle with these til it looks good...
-        uint16_t t2 = fastCosineCalc((35 * frameCount) / 100);
-        uint16_t t3 = fastCosineCalc((38 * frameCount) / 100);
+    frameCount++;
+    uint16_t t = fastCosineCalc((42 * frameCount) / 100); //time displacement - fiddle with these til it looks good...
+    uint16_t t2 = fastCosineCalc((35 * frameCount) / 100);
+    uint16_t t3 = fastCosineCalc((38 * frameCount) / 100);
 
-        for (uint8_t y = 0; y < ROWS_LEDs; y++)
+    for (uint8_t y = 0; y < NUM_STRIPS; y++)
+    {
+        int left2Right, pixelIndex;
+        if (((y % (NUM_STRIPS / 8)) & 1) == 0)
         {
-            int left2Right, pixelIndex;
-            if (((y % (ROWS_LEDs / 8)) & 1) == 0)
-            {
-                left2Right = 1;
-                pixelIndex = y * COLS_LEDs;
-            }
-            else
-            {
-                left2Right = -1;
-                pixelIndex = (y + 1) * COLS_LEDs - 1;
-            }
+            left2Right = 1;
+            pixelIndex = y * NUM_LEDS_PER_STRIP;
+        }
+        else
+        {
+            left2Right = -1;
+            pixelIndex = (y + 1) * NUM_LEDS_PER_STRIP - 1;
+        }
 
-            for (uint8_t x = 0; x < COLS_LEDs; x++)
-            {
-                //Calculate 3 seperate plasma waves, one for each color channel
-                uint8_t r = fastCosineCalc(((x << 3) + (t >> 1) + fastCosineCalc((t2 + (y << 3)))));
-                uint8_t g = fastCosineCalc(((y << 3) + t + fastCosineCalc(((t3 >> 2) + (x << 3)))));
-                uint8_t b = fastCosineCalc(((y << 3) + t2 + fastCosineCalc((t + x + (g >> 2)))));
+        for (uint8_t x = 0; x < NUM_LEDS_PER_STRIP; x++)
+        {
+            //Calculate 3 seperate plasma waves, one for each color channel
+            uint8_t r = fastCosineCalc(((x << 3) + (t >> 1) + fastCosineCalc((t2 + (y << 3)))));
+            uint8_t g = fastCosineCalc(((y << 3) + t + fastCosineCalc(((t3 >> 2) + (x << 3)))));
+            uint8_t b = fastCosineCalc(((y << 3) + t2 + fastCosineCalc((t + x + (g >> 2)))));
 
-                //uncomment the following to enable gamma correction
-                //r=pgm_read_byte_near(exp_gamma+r);
-                //g=pgm_read_byte_near(exp_gamma+g);
-                //b=pgm_read_byte_near(exp_gamma+b);
-                context->leds[pixelIndex] = CRGB(r, g, b);
-                // leds.setPixel(pixelIndex, ((r << 16) | (g << 8) | b));
-                pixelIndex += left2Right;
-            }
-        // }
+            //uncomment the following to enable gamma correction
+            //r=pgm_read_byte_near(exp_gamma+r);
+            //g=pgm_read_byte_near(exp_gamma+g);
+            //b=pgm_read_byte_near(exp_gamma+b);
+            context->leds[pixelIndex] = CRGB(r, g, b);
+            pixelIndex += left2Right;
+        }
     }
 }
 } // namespace Catharsis
