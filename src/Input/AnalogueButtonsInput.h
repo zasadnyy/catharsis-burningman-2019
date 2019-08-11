@@ -11,10 +11,8 @@ namespace Catharsis
 class AnalogueButtonsInput
 {
 public:
+    static void setup();
     static InputResolver::Input readInput();
-
-private:
-    static InputResolver::Input readCurrentInput();
 };
 
 } // namespace Catharsis

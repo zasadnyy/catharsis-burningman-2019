@@ -25,18 +25,14 @@ InputResolver::Input SerialInput::parseChar(char c)
 {
     switch (c)
     {
-    case 'n':
-        return InputResolver::Input::ANIMATION_NEXT;
-    case 'p':
-        return InputResolver::Input::ANIMATION_PREVIOUS;
-    case 'f':
-        return InputResolver::Input::FRAMERATE_UP;
+    case 'w':
+        return InputResolver::BUTTON_UP;
     case 's':
-        return InputResolver::Input::FRAMERATE_DOWN;
-    case 'b':
-        return InputResolver::Input::BRIGHTNESS_UP;
+        return InputResolver::BUTTON_DOWN;
+    case 'a':
+        return InputResolver::BUTTON_LEFT;
     case 'd':
-        return InputResolver::Input::BRIGHTNESS_DOWN;
+        return InputResolver::BUTTON_RIGHT;
 
     default:
         Serial.print("Unrecognized input: ");

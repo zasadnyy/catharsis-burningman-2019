@@ -23,7 +23,6 @@
 
 using namespace Catharsis;
 
-
 Context context;
 Animation *animations[] = {
     new Animation(),
@@ -46,9 +45,13 @@ void setup()
     context.animationsCount = sizeof(animations) / sizeof(animations[0]);
     context.currentAnimation = 0;
     context.currentMenu = MENU_NONE;
+    context.menusCount = 4;
 
     SerialInput::setup();
+    AnalogueButtonsInput::setup();
+
     Screen::setup();
+    Screen::updateScreen(&context);
 }
 
 void loop()
@@ -67,13 +70,8 @@ void loop()
     if (input != InputResolver::NONE)
     {
         InputResolver::updateContext(input, &context);
+        Screen::updateScreen(&context);
     }
-
-    // ---------------------------------------------------
-    // UPDATE SCREEN
-    // ---------------------------------------------------
-    
-    Screen::updateScreen(&context);
 
     // ---------------------------------------------------
     // RENDER ANIMATION
@@ -81,9 +79,8 @@ void loop()
 
     EVERY_N_MILLISECONDS(1000 / context.fps)
     {
+        LEDS.setBrightness(context.brightness);
         animations[context.currentAnimation]->loop(&context);
+        LEDS.show();
     }
-
-    LEDS.setBrightness(context.brightness);
-    LEDS.show();
 }

@@ -20,13 +20,10 @@ struct Context
     u_int8_t currentAnimation;
     u_int8_t animationsCount;
     u_int8_t currentMenu;
+    u_int8_t menusCount;
     
     CRGB leds[NUM_STRIPS * NUM_LEDS_PER_STRIP];
 
-    // String toString() {
-    //     String toString = "Context: \n";
-    //     toString.append("  Brightness: ").append(brightness);
-    // }
 };
 
 }

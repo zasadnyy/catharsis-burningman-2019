@@ -3,43 +3,105 @@
 #include "Input/InputResolver.h"
 #include "Utils/Log.h"
 
-#define BRIGHTNESS_STEP 10
+namespace Catharsis
+{
 
-namespace Catharsis {
+void InputResolver::updateContext(Input input, Context *context)
+{
+    Serial.print("Updating context with: ");
+    Serial.println(input);
 
-    void InputResolver::updateContext(Input input, Context *context) {
-        Serial.print("Updating context with: ");
-        Serial.println(input);
-
-        switch (input)
+    switch (input)
+    {
+    case Input::BUTTON_DOWN:
+    {
+        context->currentMenu++;
+        context->currentMenu %= context->menusCount;
+        break;
+    }
+    case Input::BUTTON_UP:
+    {
+        int newIndex = context->currentMenu - 1;
+        if (newIndex < 0)
         {
-        case Input::BRIGHTNESS_UP:
-            context->brightness = min(context->brightness + BRIGHTNESS_STEP, MAX_BRIGHTNESS);
-            break;
+            newIndex = context->menusCount - 1;
+        }
+        context->currentMenu = newIndex;
+        break;
+    }
+    case Input::BUTTON_LEFT:
+    {
+        changeMenuValue(context, -1);
+        break;
+    }
+    case Input::BUTTON_RIGHT:
+    {
+        changeMenuValue(context, +1);
+        break;
+    }
+    default:
+        log("Not implemented: ");
+        break;
+    }
+}
 
-        case Input::BRIGHTNESS_DOWN:
-            context->brightness = max(context->brightness - BRIGHTNESS_STEP, 0);
-            break;
+void InputResolver::changeMenuValue(Context *context, int8_t increment)
+{
+    switch (context->currentMenu)
+    {
+    case MENU_NONE:
+        // Do nothing
+        break;
 
-        case Input::ANIMATION_NEXT:
-            context->currentAnimation++;
-            context->currentAnimation %= context->animationsCount;
-            break;
-
-        case Input::ANIMATION_PREVIOUS:
+    case MENU_ANIMATION:
+    {
+        int newIndex = context->currentAnimation + increment;
+        if (newIndex < 0)
         {
-            int newIndex = context->currentAnimation - 1;
-            if (newIndex < 0) {
-                newIndex = context->animationsCount - 1;
-            }
-            context->currentAnimation = newIndex;
-            break;
+            newIndex = context->animationsCount - 1;
+        }
+        else if (newIndex >= context->animationsCount)
+        {
+            newIndex = 0;
+        }
+        context->currentAnimation = newIndex;
+        
+        // Reset all LEDs to black. TODO move to utils
+        for (int i = 0; i < NUM_LEDS_PER_STRIP * NUM_STRIPS; i++) {
+            context->leds[i] = CRGB::Black;
         }
         
-        default:
-            log("Not implemented: " );
-            break;
-        }
+        break;
     }
-
+    case MENU_BRIGHTNESS:
+    {
+        int newValue = context->brightness + increment * BRIGHTNESS_STEP;
+        if (newValue < 0)
+        {
+            newValue = 0;
+        }
+        else if (newValue >= MAX_BRIGHTNESS)
+        {
+            newValue = MAX_BRIGHTNESS;
+        }
+        context->brightness = newValue;
+        break;
+    }
+    case MENU_FPS:
+    {
+        int newValue = context->fps + increment * FPS_STEP;
+        if (newValue < 1)
+        {
+            newValue = 1;
+        }
+        else if (newValue >= MAX_FPS)
+        {
+            newValue = MAX_FPS;
+        }
+        context->fps = newValue;
+        break;
+    }
+    }
 }
+
+} // namespace Catharsis

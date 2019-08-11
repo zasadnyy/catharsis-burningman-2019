@@ -61,20 +61,16 @@ inline uint8_t fastCosineCalc(uint16_t preWrapVal)
 
 void TmpAnimation::loop(Context *context)
 {
-    Serial.println("ln 63");
-    unsigned long frameCount = 25500; // arbitrary seed to calculate the three time displacement variables t,t2,t3
-    while (1)
-    {
+    static unsigned long frameCount = 25500; // arbitrary seed to calculate the three time displacement variables t,t2,t3
+    // while (1)
+    // {
         frameCount++;
         uint16_t t = fastCosineCalc((42 * frameCount) / 100); //time displacement - fiddle with these til it looks good...
         uint16_t t2 = fastCosineCalc((35 * frameCount) / 100);
         uint16_t t3 = fastCosineCalc((38 * frameCount) / 100);
 
-        Serial.println("ln 72");
-        
         for (uint8_t y = 0; y < ROWS_LEDs; y++)
         {
-            Serial.println("ln 76");
             int left2Right, pixelIndex;
             if (((y % (ROWS_LEDs / 8)) & 1) == 0)
             {
@@ -87,17 +83,12 @@ void TmpAnimation::loop(Context *context)
                 pixelIndex = (y + 1) * COLS_LEDs - 1;
             }
 
-            Serial.println("ln 89");
-
             for (uint8_t x = 0; x < COLS_LEDs; x++)
             {
                 //Calculate 3 seperate plasma waves, one for each color channel
                 uint8_t r = fastCosineCalc(((x << 3) + (t >> 1) + fastCosineCalc((t2 + (y << 3)))));
                 uint8_t g = fastCosineCalc(((y << 3) + t + fastCosineCalc(((t3 >> 2) + (x << 3)))));
                 uint8_t b = fastCosineCalc(((y << 3) + t2 + fastCosineCalc((t + x + (g >> 2)))));
-
-                Serial.print("ln 98, updating index: ");
-                Serial.println(pixelIndex);
 
                 //uncomment the following to enable gamma correction
                 //r=pgm_read_byte_near(exp_gamma+r);
@@ -107,13 +98,7 @@ void TmpAnimation::loop(Context *context)
                 // leds.setPixel(pixelIndex, ((r << 16) | (g << 8) | b));
                 pixelIndex += left2Right;
             }
-        }
-
-        Serial.println("ln 109");
-        
-        digitalWrite(13, HIGH);
-        
-        digitalWrite(13, LOW);
+        // }
     }
 }
 } // namespace Catharsis
