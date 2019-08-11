@@ -14,7 +14,7 @@
 #define NUM_STRIPS 8
 
 #define MAX_BRIGHTNESS 255
-#define MAX_FPS 1000
+#define MAX_FPS 510 // The max FPS I could get from Teensy
 
 
 

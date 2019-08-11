@@ -25,8 +25,8 @@ using namespace Catharsis;
 
 Context context;
 Animation *animations[] = {
-    new Animation(),
     new TmpAnimation(),
+    new Animation(),
     new RainbowAnimation(),
     new LineNumbersAnimation(),
     new FireAnimation()};
@@ -77,8 +77,15 @@ void loop()
     // RENDER ANIMATION
     // ---------------------------------------------------
 
-    EVERY_N_MILLISECONDS(1000 / context.fps)
+    
+    uint16_t updateIntervalMs = 1000 / context.fps;
+    uint32_t now = millis();
+    static uint32_t lastUpdate = now;
+
+    if (now - lastUpdate > updateIntervalMs) 
     {
+        lastUpdate = now;
+
         LEDS.setBrightness(context.brightness);
         animations[context.currentAnimation]->loop(&context);
         LEDS.show();

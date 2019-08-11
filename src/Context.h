@@ -15,7 +15,7 @@ namespace Catharsis
 
 struct Context
 {
-    u_int8_t fps;
+    u_int16_t fps;
     u_int8_t brightness;
     u_int8_t currentAnimation;
     u_int8_t animationsCount;
