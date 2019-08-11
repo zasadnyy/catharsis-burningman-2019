@@ -10,24 +10,28 @@
 #include "Animations/RainbowAnimation.h"
 #include "Animations/LineNumbersAnimation.h"
 #include "Animations/FireAnimation.h"
+#include "Animations/TmpAnimation.h"
 
 #include "Input/InputResolver.h"
 #include "Input/SerialInput.h"
 #include "Input/AnalogueButtonsInput.h"
+
+#include "Utils/Screen.h"
 
 // Pin layouts on the teensy 3:
 // OctoWS2811: 2,14,7,8,6,20,21,5
 
 using namespace Catharsis;
 
-Context context;
-LiquidCrystal lcd(0, 1, 17, 18, 19, 22);
 
+Context context;
 Animation *animations[] = {
-    new RainbowAnimation(),
     new Animation(),
+    new TmpAnimation(),
+    new RainbowAnimation(),
     new LineNumbersAnimation(),
     new FireAnimation()};
+
 
 void setup()
 {
@@ -37,32 +41,18 @@ void setup()
     delay(3000); // 3s power-up safety delay
 
     LEDS.addLeds<OCTOWS2811>(context.leds, NUM_LEDS_PER_STRIP);
+    context.fps = 30;
     context.brightness = MAX_BRIGHTNESS / 2;
     context.animationsCount = sizeof(animations) / sizeof(animations[0]);
     context.currentAnimation = 0;
+    context.currentMenu = MENU_NONE;
 
     SerialInput::setup();
-
-    // set up the LCD's number of rows and columns:
-    lcd.begin(16, 2);
-    // Print a message to the LCD.
-    lcd.print("hello, world!");
+    Screen::setup();
 }
 
 void loop()
 {
-    // if (lcd_key != btnNONE)
-    // {
-    //     Serial.print("Pressed button: ");
-    //     Serial.println(lcd_key);
-    // }
-
-    // set the cursor to column 0, line 1
-    // (note: line 1 is the second row, since counting begins with 0):
-    lcd.setCursor(0, 1);
-    // print the number of seconds since reset:
-    lcd.print(millis() / 1000);
-
     // ---------------------------------------------------
     // INPUT
     // ---------------------------------------------------
@@ -80,12 +70,20 @@ void loop()
     }
 
     // ---------------------------------------------------
-    // UPDATE FROM CONTEXT
+    // UPDATE SCREEN
     // ---------------------------------------------------
+    
+    Screen::updateScreen(&context);
+
+    // ---------------------------------------------------
+    // RENDER ANIMATION
+    // ---------------------------------------------------
+
+    EVERY_N_MILLISECONDS(1000 / context.fps)
+    {
+        animations[context.currentAnimation]->loop(&context);
+    }
+
     LEDS.setBrightness(context.brightness);
-
-    animations[context.currentAnimation]->loop(&context);
-
     LEDS.show();
-    LEDS.delay(10);
 }

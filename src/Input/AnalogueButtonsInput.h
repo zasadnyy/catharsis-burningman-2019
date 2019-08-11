@@ -6,7 +6,7 @@
 namespace Catharsis
 {
 
-#define COOLDOWN 250 //ms
+#define COOLDOWN 200 //ms
 
 class AnalogueButtonsInput
 {
