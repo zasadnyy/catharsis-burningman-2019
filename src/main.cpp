@@ -44,7 +44,7 @@ void setup()
     delay(3000); // 3s power-up safety delay
 
     LEDS.addLeds<OCTOWS2811>(context.leds, NUM_LEDS_PER_STRIP);
-    context.fps = 60;
+    context.fps = 30;
     context.brightness = MAX_BRIGHTNESS / 2;
     context.animationsCount = sizeof(animations) / sizeof(animations[0]);
     context.currentAnimation = 0;

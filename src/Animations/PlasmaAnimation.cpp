@@ -73,14 +73,16 @@ void PlasmaAnimation::loop(Context *context)
         {
             //Calculate 3 seperate plasma waves, one for each color channel
             uint8_t r = fastCosineCalc(((x << 3) + (t >> 1) + fastCosineCalc((t2 + (y << 3)))));
-            uint8_t g = fastCosineCalc(((y << 3) + t + fastCosineCalc(((t3 >> 2) + (x << 3)))));
+            uint8_t g = 0;// fastCosineCalc(((y << 3) + t + fastCosineCalc(((t3 >> 2) + (x << 3)))));
             uint8_t b = fastCosineCalc(((y << 3) + t2 + fastCosineCalc((t + x + (g >> 2)))));
 
             //uncomment the following to enable gamma correction
             //r=pgm_read_byte_near(exp_gamma+r);
             //g=pgm_read_byte_near(exp_gamma+g);
             //b=pgm_read_byte_near(exp_gamma+b);
-            context->leds[pixelIndex] = CRGB(r, g, b);
+            
+            context->leds[pixelIndex] = blend(context->leds[pixelIndex], CRGB(r, g, b), 128);
+            // context->leds[pixelIndex] = CHSV(r, g, b);
             pixelIndex += left2Right;
         }
     }
