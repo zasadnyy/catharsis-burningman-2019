@@ -29,7 +29,7 @@ using namespace Catharsis;
 Context context;
 Animation *animations[] = {
     new Animation(),
-    // new TmpAnimation(),
+    new TmpAnimation(),
     new PlasmaAnimation(),
     new RainbowAnimation(),
     new LineNumbersAnimation(),
