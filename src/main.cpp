@@ -12,6 +12,7 @@
 #include "Animations/FireAnimation.h"
 #include "Animations/PlasmaAnimation.h"
 #include "Animations/TmpAnimation.h"
+#include "Animations/ConveyLifeAnimation.h"
 
 #include "Input/InputResolver.h"
 #include "Input/SerialInput.h"
@@ -26,9 +27,22 @@
 
 using namespace Catharsis;
 
-Context context;
+Context *context;
+
+CRGBPalette16 *palettes[] = {
+    HeatColors_p,
+    CloudColors_p,
+    ForestColors_p,
+    LavaColors_p,
+    OceanColors_p,
+    PartyColors_p,
+    RainbowColors_p,
+    RainbowStripeColors_p
+};
+
 Animation *animations[] = {
     new Animation(),
+    new ConveyLifeAnimation(),
     new TmpAnimation(),
     new PlasmaAnimation(),
     new RainbowAnimation(),
@@ -43,21 +57,24 @@ void setup()
 
     delay(3000); // 3s power-up safety delay
 
-    LEDS.addLeds<OCTOWS2811>(context.leds, NUM_LEDS_PER_STRIP);
-    context.fps = 30;
-    context.brightness = MAX_BRIGHTNESS / 2;
-    context.animationsCount = sizeof(animations) / sizeof(animations[0]);
-    context.currentAnimation = 0;
-    context.currentMenu = MENU_NONE;
-    context.menusCount = 4;
+    context = new Context(sizeof(animations) / sizeof(animations[0]), palettes);
+    LEDS.addLeds<OCTOWS2811>(context->leds, NUM_LEDS_PER_STRIP);
+    
+    // context.fps = 30;
+    // context.brightness = MAX_BRIGHTNESS / 2;
+    // context.animationsCount = sizeof(animations) / sizeof(animations[0]);
+    // context.currentAnimation = 0;
+    // context.currentPalette = 0;
+    // context.currentMenu = MENU_NONE;
+    // context.menusCount = 4;
 
     SerialInput::setup();
     AnalogueButtonsInput::setup();
 
     Screen::setup();
-    Screen::updateScreen(&context);
+    Screen::updateScreen(context);
 
-    // MAL::setup(&context);
+    // MAL::setup(context);
 }
 
 void loop()
@@ -75,15 +92,15 @@ void loop()
 
     if (input != InputResolver::NONE)
     {
-        InputResolver::updateContext(input, &context);
-        Screen::updateScreen(&context);
+        InputResolver::updateContext(input, context);
+        Screen::updateScreen(context);
     }
 
     // ---------------------------------------------------
     // RENDER ANIMATION
     // ---------------------------------------------------
 
-    uint16_t updateIntervalMs = 1000 / context.fps;
+    uint16_t updateIntervalMs = 1000 / context->fps;
     uint32_t now = millis();
     static uint32_t lastUpdate = now;
 
@@ -91,8 +108,8 @@ void loop()
     {
         lastUpdate = now;
 
-        LEDS.setBrightness(context.brightness);
-        animations[context.currentAnimation]->loop(&context);
+        LEDS.setBrightness(context->brightness);
+        animations[context->currentAnimation]->loop(context);
         LEDS.show();
     }
 }

@@ -58,9 +58,9 @@ void InputResolver::changeMenuValue(Context *context, int8_t increment)
         int newIndex = context->currentAnimation + increment;
         if (newIndex < 0)
         {
-            newIndex = context->animationsCount - 1;
+            newIndex = context->getAnimationsCount() - 1;
         }
-        else if (newIndex >= context->animationsCount)
+        else if (newIndex >= context->getAnimationsCount())
         {
             newIndex = 0;
         }

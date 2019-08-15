@@ -15,6 +15,8 @@
 #define NUM_LEDS NUM_STRIPS * NUM_LEDS_PER_STRIP
 
 #define MAX_BRIGHTNESS 255
+
+#define DEFAULT_FPS 30
 #define MAX_FPS 510 // The max FPS I could get from Teensy
 
 
