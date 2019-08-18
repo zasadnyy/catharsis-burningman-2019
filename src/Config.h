@@ -10,7 +10,7 @@
 #define SCREEN_D6_PIN 19
 #define SCREEN_D7_PIN 22
 
-#define NUM_LEDS_PER_STRIP 15
+#define NUM_LEDS_PER_STRIP 300
 #define NUM_STRIPS 8
 
 #define MAX_BRIGHTNESS 255
