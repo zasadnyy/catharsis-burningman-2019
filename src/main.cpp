@@ -12,6 +12,7 @@
 #include "Animations/FireAnimation.h"
 #include "Animations/PlasmaAnimation.h"
 #include "Animations/TmpAnimation.h"
+#include "Animations/ConveyLifeAnimation.h"
 
 #include "Input/InputResolver.h"
 #include "Input/SerialInput.h"
@@ -29,6 +30,7 @@ using namespace Catharsis;
 Context context;
 Animation *animations[] = {
     new Animation(),
+    new ConveyLifeAnimation(),
     new TmpAnimation(),
     new PlasmaAnimation(),
     new RainbowAnimation(),

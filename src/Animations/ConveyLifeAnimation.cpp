@@ -48,7 +48,7 @@ public:
 };
 
 Cell world[NUM_STRIPS][NUM_LEDS_PER_STRIP];
-long density = 50;
+long density = 30;
 int generation = 0;
 
 void randomFillWorld()
@@ -210,8 +210,8 @@ void ConveyLifeAnimation::loop(Context *context)
     }
 
     generation++;
-    if (generation >= 256)
-        generation = 0;
+    // if (generation >= 256)
+    //     generation = 0;
 
     // backgroundLayer.swapBuffers();
     // LEDS.delay(33);

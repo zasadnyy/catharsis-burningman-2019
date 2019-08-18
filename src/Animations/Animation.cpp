@@ -13,19 +13,21 @@ void Animation::loop(Context *context)
 {
     fillLedsWithColor(context, CRGB::DeepPink);
 
-    // Set one pixel to black
     static uint32_t loopCount = 0;
-    uint8_t ledToBlack = loopCount % (NUM_LEDS_PER_STRIP * NUM_STRIPS);
-    context->leds[ledToBlack] = CRGB::Black;
-    loopCount++;
-
+    
     // Set strip number
     for (int strip = 0; strip < NUM_STRIPS; strip++)
     {
-        for (int led = 0; led <= strip; led++)
+        for (int led = 0; led <= NUM_LEDS_PER_STRIP; led++)
         {
-            context->leds[(strip * NUM_LEDS_PER_STRIP) + led] = CRGB::White;
+            bool isBlack = (led / (strip + 1) % 2) == 0; 
+            if (isBlack) {
+                int hueIJ = (255 / NUM_LEDS_PER_STRIP * strip + led + loopCount) % 255;
+                context->leds[(strip * NUM_LEDS_PER_STRIP) + led] = CHSV(200, 230, hueIJ);
+            }
         }
     }
+
+    loopCount++;
 }
 } // namespace Catharsis
