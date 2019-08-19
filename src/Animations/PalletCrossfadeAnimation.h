@@ -13,9 +13,9 @@ public:
     PalletCrossfadeAnimation();
 
     void setup();
-    void loop(Context *context);
-    void ChangePalettePeriodically();
-    void FillLEDsFromPaletteColors(uint8_t colorIndex, Context *context);
+    // void loop(Context *context);
+    void loop(Context *context, CRGBPalette16 curPalette);
+    void FillLEDsFromPaletteColors(uint8_t colorIndex, Context *context, CRGBPalette16 curPalette);
 };
 
 } // namespace Catharsis

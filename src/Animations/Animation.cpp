@@ -9,7 +9,7 @@ Animation::Animation() {}
 
 void Animation::setup() {}
 
-void Animation::loop(Context *context)
+void Animation::loop(Context *context, CRGBPalette16 curPalette)
 {
     fillLedsWithColor(context, CRGB::DeepPink);
 

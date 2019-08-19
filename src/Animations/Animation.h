@@ -11,7 +11,8 @@ namespace Catharsis {
         Animation();
 
         virtual void setup();
-        virtual void loop(Context *context);
+        // virtual void loop(Context *context);
+        virtual void loop(Context *context, CRGBPalette16 curPalette);
     };    
 }
 

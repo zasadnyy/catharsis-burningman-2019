@@ -10,8 +10,11 @@
 #define SCREEN_D6_PIN 19
 #define SCREEN_D7_PIN 22
 
-#define NUM_LEDS_PER_STRIP 300
+#define NUM_LEDS_PER_STRIP 350
 #define NUM_STRIPS 8
+#define NUM_LEDS 2800 // Should be dynamic
+
+#define ANIMATION_TIMEOUT 10 // Seconds
 
 #define MAX_BRIGHTNESS 255
 #define MAX_FPS 510 // The max FPS I could get from Teensy
