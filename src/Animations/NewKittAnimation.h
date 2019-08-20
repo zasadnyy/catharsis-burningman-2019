@@ -1,5 +1,5 @@
-#ifndef PLASMAANIMATION_H
-#define PLASMAANIMATION_H
+#ifndef NEW_KITT_ANIMATION
+#define NEW_KITT_ANIMATION
 
 #include "Context.h"
 #include "Animations/Animation.h"
@@ -7,10 +7,10 @@
 namespace Catharsis
 {
 
-class PlasmaAnimation : public Animation
+class NewKittAnimation : public Animation
 {
 public:
-    PlasmaAnimation();
+    NewKittAnimation();
 
     void setup();
     void loop(Context *context, CRGBPalette16 curPalette);
@@ -18,4 +18,4 @@ public:
 
 } // namespace Catharsis
 
-#endif /* PLASMAANIMATION_H */
+#endif /* NEW_KITT_ANIMATION */

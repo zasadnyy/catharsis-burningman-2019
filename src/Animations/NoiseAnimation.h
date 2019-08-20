@@ -1,5 +1,5 @@
-#ifndef PLASMAANIMATION_H
-#define PLASMAANIMATION_H
+#ifndef NOISE_ANIMATION_H
+#define NOISE_ANIMATION_H
 
 #include "Context.h"
 #include "Animations/Animation.h"
@@ -7,10 +7,10 @@
 namespace Catharsis
 {
 
-class PlasmaAnimation : public Animation
+class NoiseAnimation : public Animation
 {
 public:
-    PlasmaAnimation();
+    NoiseAnimation();
 
     void setup();
     void loop(Context *context, CRGBPalette16 curPalette);
@@ -18,4 +18,4 @@ public:
 
 } // namespace Catharsis
 
-#endif /* PLASMAANIMATION_H */
+#endif /* NOISE_ANIMATION_H */

@@ -1,5 +1,5 @@
-#ifndef PLASMAANIMATION_H
-#define PLASMAANIMATION_H
+#ifndef MATRIX_ANIMATION_H
+#define MATRIX_ANIMATION_H
 
 #include "Context.h"
 #include "Animations/Animation.h"
@@ -7,10 +7,10 @@
 namespace Catharsis
 {
 
-class PlasmaAnimation : public Animation
+class MatrixAnimation : public Animation
 {
 public:
-    PlasmaAnimation();
+    MatrixAnimation();
 
     void setup();
     void loop(Context *context, CRGBPalette16 curPalette);
@@ -18,4 +18,4 @@ public:
 
 } // namespace Catharsis
 
-#endif /* PLASMAANIMATION_H */
+#endif /* MATRIX_ANIMATION_H */

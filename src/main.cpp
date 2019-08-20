@@ -17,6 +17,11 @@
 #include "Animations/PalletCrossfadeAnimation.h"
 #include "Animations/Fire2012WithPalettesAnimation.h"
 #include "Animations/BeatWaveAnimation.h"
+#include "Animations/FadePulseGlowAnimation.h"
+#include "Animations/NewKittAnimation.h"
+#include "Animations/JungleAnimation.h"
+#include "Animations/MatrixAnimation.h"
+#include "Animations/NoiseAnimation.h"
 
 #include "Input/InputResolver.h"
 #include "Input/SerialInput.h"
@@ -35,11 +40,16 @@ Context context;
 Animation *animations[] = {
     // new Animation(),
     // new TmpAnimation(),
+    // new BeatWaveAnimation(),
+    // new NewKittAnimation(),
+    // new FadePulseGlowAnimation(),
+    new NoiseAnimation(),
+    // new JungleAnimation(),
+    new MatrixAnimation(),
     // new PlasmaAnimation(),
-    new BeatWaveAnimation(),
-    new Fire2012WithPalettesAnimation(),
-    new PalletCrossfadeAnimation(),
-    // new RainbowAnimation(),
+    // new Fire2012WithPalettesAnimation(),
+    // new PalletCrossfadeAnimation(),
+    new RainbowAnimation(),
     // new LineNumbersAnimation(),
     // new FireAnimation()
 };
@@ -172,7 +182,7 @@ void loop()
         // CRGB* anim2 = palletCrossfade(curPalette);
 
         // for (int i=0; i<NUM_LEDS; i++) {
-        //   context.leds[i] = anim2[i]; 
+        //   context.leds[i] = CRGB::White; 
         // }
 
         // uint8_t ratio = beatsin8(2);

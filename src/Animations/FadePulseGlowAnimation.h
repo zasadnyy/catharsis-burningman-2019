@@ -1,5 +1,5 @@
-#ifndef PLASMAANIMATION_H
-#define PLASMAANIMATION_H
+#ifndef FADE_PULSE_GLOW_ANIMATION_H
+#define FADE_PULSE_GLOW_ANIMATION_H
 
 #include "Context.h"
 #include "Animations/Animation.h"
@@ -7,10 +7,10 @@
 namespace Catharsis
 {
 
-class PlasmaAnimation : public Animation
+class FadePulseGlowAnimation : public Animation
 {
 public:
-    PlasmaAnimation();
+    FadePulseGlowAnimation();
 
     void setup();
     void loop(Context *context, CRGBPalette16 curPalette);
@@ -18,4 +18,4 @@ public:
 
 } // namespace Catharsis
 
-#endif /* PLASMAANIMATION_H */
+#endif /* FADE_PULSE_GLOW_ANIMATION_H */
