@@ -31,7 +31,7 @@ void Screen::updateScreen(Context *context)
 
     lcd.setCursor(8, 1);
     currentMenu = context->currentMenu == MENU_FPS ? ">" : "";
-    lcd.print(currentMenu + "FPS:" + String(context->fps));
+    lcd.print(currentMenu + "FPS:" + String(LEDS.getFPS()));
 
     // Serial.println(currentMenu + "FPS: " + String(context->fps) + "(" + LEDS.getFPS() + ")");
 }

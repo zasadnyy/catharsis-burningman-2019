@@ -10,15 +10,19 @@
 #define SCREEN_D6_PIN 19
 #define SCREEN_D7_PIN 22
 
-#define NUM_LEDS_PER_STRIP 350
+#define NUM_LEDS_PER_STRIP 666
 #define NUM_STRIPS 8
-#define NUM_LEDS 2800 // Should be dynamic
+#define NUM_LEDS NUM_LEDS_PER_STRIP * NUM_STRIPS
 
 #define ANIMATION_TIMEOUT 10 // Seconds
 
 #define MAX_BRIGHTNESS 255
 #define MAX_FPS 510 // The max FPS I could get from Teensy
 
+// #define qsubd(x, b) ((x>b)?b:0)                               // Clip. . . . A digital unsigned subtraction macro. if result <0, then x=0. Otherwise, x=b.
+// #define qsuba(x, b) ((x>b)?x-b:0) 
 
+// const uint8_t NUM_LEDS = NUM_LEDS_PER_STRIP * NUM_STRIPS;
+// CRGB leds[NUM_LEDS];
 
 #endif /* CONFIG_H */

@@ -9,7 +9,7 @@ static uint8_t hue = 0;
 
 RainbowAnimation::RainbowAnimation() {}
 
-void RainbowAnimation::loop(Context *context)
+void RainbowAnimation::loop(Context *context, CRGBPalette16 currentPalette)
 {
     // for (int j = 0; j < NUM_LEDS_PER_STRIP; j++)
     // {

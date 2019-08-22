@@ -4,10 +4,14 @@
 #include <OctoWS2811.h>
 #include <FastLED.h>
 #include <LiquidCrystal.h>
+
 #include "Config.h"
 #include "Context.h"
 #include "Palettes.h"
 #include "Animations.h"
+
+// #include "support.h"
+// #include "gradient_palettes.h"
 
 #include "Animations/RainbowAnimation.h"
 #include "Animations/LineNumbersAnimation.h"
@@ -42,11 +46,11 @@ Animation *animations[] = {
     // new TmpAnimation(),
     // new BeatWaveAnimation(),
     // new NewKittAnimation(),
-    // new FadePulseGlowAnimation(),
-    new NoiseAnimation(),
-    // new JungleAnimation(),
+    new FadePulseGlowAnimation(),
+    // new NoiseAnimation(),
+    new JungleAnimation(),
     new MatrixAnimation(),
-    // new PlasmaAnimation(),
+    new PlasmaAnimation(),
     // new Fire2012WithPalettesAnimation(),
     // new PalletCrossfadeAnimation(),
     new RainbowAnimation(),
@@ -72,8 +76,6 @@ void ChangePalettePeriodically() {
     CRGB b = CRGB::Black;
     CRGB w = CRGB::White;
 
-    Serial.println(secondHand);
-
     if(secondHand ==  0)  { targetPalette = palettes[0]; }
     if(secondHand == 10)  { targetPalette = palettes[1]; }
     if(secondHand == 20)  { targetPalette = palettes[2]; }
@@ -86,14 +88,31 @@ void ChangePalettePeriodically() {
 
 }
 
-void switchAnimation() {
-    Serial.println("Switch");
-    Serial.println(context.currentAnimation);
-    u_int8_t nextAnimation = context.currentAnimation + 1;
-    if(nextAnimation == context.animationsCount) {
-        nextAnimation = 0;
+bool inTransition = false;
+bool direction = 0;
+int fadeAmount = -5;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
+int brightness = 0; 
+
+void startTransition() {
+    if (!inTransition) {
+        direction = -1;
+        inTransition = true;
+        brightness = context.brightness;
+        fadeAmount = -2;
     }
-    context.currentAnimation = nextAnimation;
+}
+
+void switchAnimation() {
+   
+        Serial.println("-------switch animation");
+        u_int8_t nextAnimation = context.currentAnimation + 1;
+        if(nextAnimation == context.animationsCount) {
+            nextAnimation = 0;
+        }
+        context.currentAnimation = nextAnimation;
+        // transition = true;
+        // brightness = context.brightness;
+        // fadeAmount = -5;
 }
 
 
@@ -106,7 +125,7 @@ void setup()
 
     LEDS.addLeds<OCTOWS2811>(context.leds, NUM_LEDS_PER_STRIP);
     context.fps = 60;
-    context.brightness = MAX_BRIGHTNESS / 2;
+    context.brightness = 100;
     context.animationsCount = sizeof(animations) / sizeof(animations[0]);
     context.currentAnimation = 0;
     context.currentPalette = palettes[0];
@@ -123,7 +142,10 @@ void setup()
     Screen::updateScreen(&context);
 
     // MAL::setup(&context);
+
+    LEDS.setBrightness(context.brightness); 
 }
+
 
 void loop()
 {
@@ -160,7 +182,8 @@ void loop()
     }
 
     EVERY_N_BSECONDS(ANIMATION_TIMEOUT) {
-        switchAnimation();
+        // switchAnimation();
+        startTransition();
     }
 
     // ---------------------------------------------------
@@ -171,26 +194,33 @@ void loop()
     uint32_t now = millis();
     static uint32_t lastUpdate = now;
 
-    if (now - lastUpdate > updateIntervalMs) 
-    {
-        lastUpdate = now;
+    // if (now - lastUpdate > updateIntervalMs) 
+    // {
+    //     lastUpdate = now;
 
-        LEDS.setBrightness(context.brightness);
-        animations[context.currentAnimation]->loop(&context, curPalette);
+
+        if(inTransition) {
+            // for(int i = 0; i < NUM_LEDS; i++ )
+            // {
+            //     context.leds[i].fadeLightBy(brightness);
+            // }
+            LEDS.setBrightness(brightness); 
+            brightness = brightness + fadeAmount;
+            // reverse the direction of the fading at the ends of the fade: 
+            if(brightness == 0 || brightness == context.brightness)
+            {
+                fadeAmount = -fadeAmount;
+            }
+            if(brightness == 0) {
+                switchAnimation();
+            }
+            if (brightness == context.brightness) {
+                inTransition = false; 
+            }
+        } 
         
-        // CRGB* anim1 = beatwave(curPalette);
-        // CRGB* anim2 = palletCrossfade(curPalette);
-
-        // for (int i=0; i<NUM_LEDS; i++) {
-        //   context.leds[i] = CRGB::White; 
-        // }
-
-        // uint8_t ratio = beatsin8(2);
-
-        // for (int i = 0; i < NUM_LEDS; i++) {                        // mix the 2 arrays together
-        //     context.leds[i] = blend( anim1[i], anim2[i], ratio);
-        // }
-
+        animations[context.currentAnimation]->loop(&context, curPalette);
+    
         LEDS.show();
-    }
+    // }
 }

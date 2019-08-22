@@ -12,7 +12,7 @@ class RainbowAnimation : public Animation
 public:
     RainbowAnimation();
 
-    void loop(Context *context);
+    void loop(Context *context, CRGBPalette16 currentPalette);
 };
 
 } // namespace Catharsis
