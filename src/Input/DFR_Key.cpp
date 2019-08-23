@@ -12,10 +12,11 @@ static int DEFAULT_THRESHOLD = 10;
 // none  1023
 // select ??? - looks like not working
 
-static int UPKEY_ARV = 198; //that's read "analogue read value"
-static int DOWNKEY_ARV = 470;
-static int LEFTKEY_ARV = 714;
-static int RIGHTKEY_ARV = 10;
+static int UPKEY_ARV = 200; // 202
+static int DOWNKEY_ARV = 466; // 466-467
+static int LEFTKEY_ARV = 727; // 726-728
+static int RIGHTKEY_ARV = 10; // 1-3
+
 static int SELKEY_ARV = 900; // TODO seems not working on the shield
 static int NOKEY_ARV = 1000;
 

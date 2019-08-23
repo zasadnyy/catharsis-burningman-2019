@@ -21,9 +21,9 @@ struct Context
     u_int8_t animationsCount;
     u_int8_t currentMenu;
     u_int8_t menusCount;
-    CRGBPalette16 currentPalette;
+    CRGB leds[NUM_LEDS];
     
-    CRGB leds[NUM_STRIPS * NUM_LEDS_PER_STRIP];
+    CRGBPalette16 currentPalette;
 };
 
 }

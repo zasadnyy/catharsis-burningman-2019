@@ -15,14 +15,15 @@
 #define NUM_LEDS NUM_LEDS_PER_STRIP * NUM_STRIPS
 
 #define ANIMATION_TIMEOUT 10 // Seconds
+#define PALETTES_TIMEOUT 100 // Milliseconds
+#define PALETTES_MAX_CHANGES 24 // Milliseconds
 
 #define MAX_BRIGHTNESS 255
 #define MAX_FPS 510 // The max FPS I could get from Teensy
 
-// #define qsubd(x, b) ((x>b)?b:0)                               // Clip. . . . A digital unsigned subtraction macro. if result <0, then x=0. Otherwise, x=b.
+// #define qsubd(x, b) ((x>b)?b:0)                               
 // #define qsuba(x, b) ((x>b)?x-b:0) 
 
-// const uint8_t NUM_LEDS = NUM_LEDS_PER_STRIP * NUM_STRIPS;
 // CRGB leds[NUM_LEDS];
 
 #endif /* CONFIG_H */

@@ -74,11 +74,11 @@ void InputResolver::changeMenuValue(Context *context, int8_t increment)
         int newValue = context->brightness + increment * BRIGHTNESS_STEP;
         if (newValue < 0)
         {
-            newValue = 0;
+            newValue = MAX_BRIGHTNESS;
         }
         else if (newValue >= MAX_BRIGHTNESS)
         {
-            newValue = MAX_BRIGHTNESS;
+            newValue = 0;
         }
         context->brightness = newValue;
         break;
@@ -88,12 +88,15 @@ void InputResolver::changeMenuValue(Context *context, int8_t increment)
         int newValue = context->fps + increment * FPS_STEP;
         if (newValue < 1)
         {
-            newValue = 1;
+            newValue = MAX_FPS;
         }
         else if (newValue >= MAX_FPS)
         {
-            newValue = MAX_FPS;
+            newValue = 0;
         }
+        Serial.println("IN MENU_FPS");
+        Serial.println(context->fps);
+        Serial.println(newValue);
         context->fps = newValue;
         break;
     }

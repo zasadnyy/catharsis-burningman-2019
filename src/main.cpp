@@ -11,7 +11,6 @@
 #include "Animations.h"
 
 // #include "support.h"
-// #include "gradient_palettes.h"
 
 #include "Animations/RainbowAnimation.h"
 #include "Animations/LineNumbersAnimation.h"
@@ -103,16 +102,11 @@ void startTransition() {
 }
 
 void switchAnimation() {
-   
-        Serial.println("-------switch animation");
         u_int8_t nextAnimation = context.currentAnimation + 1;
         if(nextAnimation == context.animationsCount) {
             nextAnimation = 0;
         }
         context.currentAnimation = nextAnimation;
-        // transition = true;
-        // brightness = context.brightness;
-        // fadeAmount = -5;
 }
 
 
@@ -168,21 +162,11 @@ void loop()
 
     ChangePalettePeriodically();
 
-    // EVERY_N_MILLISECONDS(2000) {
-    //     uint8_t maxChanges = 24; 
-
-    //     Serial.println('---');
-    //     nblendPaletteTowardPalette(context.currentPalette, targetPalette, maxChanges);
-    //     // context.currentPalette = targetPalette;
-    // }
-
-    EVERY_N_MILLISECONDS(100) {
-        uint8_t maxChanges = 24; 
-        nblendPaletteTowardPalette(curPalette, targetPalette, maxChanges);
+    EVERY_N_MILLISECONDS(PALETTES_TIMEOUT) {
+        nblendPaletteTowardPalette(curPalette, targetPalette, PALETTES_MAX_CHANGES);
     }
 
     EVERY_N_BSECONDS(ANIMATION_TIMEOUT) {
-        // switchAnimation();
         startTransition();
     }
 
@@ -200,10 +184,6 @@ void loop()
 
 
         if(inTransition) {
-            // for(int i = 0; i < NUM_LEDS; i++ )
-            // {
-            //     context.leds[i].fadeLightBy(brightness);
-            // }
             LEDS.setBrightness(brightness); 
             brightness = brightness + fadeAmount;
             // reverse the direction of the fading at the ends of the fade: 
