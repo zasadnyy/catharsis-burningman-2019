@@ -37,7 +37,6 @@ void startTransition() {
 }
 
 void switchAnimation() {
-    Serial.println("switch animation");
     u_int8_t nextAnimation = context.currentAnimationIndex + 1;
     if(nextAnimation == context.animationsCount) {
         nextAnimation = 0;

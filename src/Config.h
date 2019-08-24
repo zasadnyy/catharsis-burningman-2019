@@ -22,7 +22,7 @@
 #define PALETTES_MAX_CHANGES 24
 #define PALETTE_TIMEOUT_STEP 10
 
-#define BRIGHTNESS 100
+#define BRIGHTNESS 50
 #define MAX_BRIGHTNESS 255
 #define ANIMATION_FADE_AMOUNT 2 // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
 #define BRIGHTNESS_STEP 10

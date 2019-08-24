@@ -29,14 +29,14 @@ DEFINE_GRADIENT_PALETTE( black_red_black_gp ) {
 
 
 CRGBPalette16 palettes[] = {
-    // Purplefly_p,
-    Ukranian_flag_gp,
-    rhubarb_gp,
-    // black_red_black_gp,
-    RainbowColors_p,
-    // LavaColors_p,
-    // CloudColors_p,
-    // PartyColors_p,
+    Purplefly_p,
+    Ukranian_flag_gp, // Good
+    rhubarb_gp, // too small?
+    black_red_black_gp,
+    RainbowColors_p, // Neat
+    LavaColors_p,
+    CloudColors_p,
+    PartyColors_p, // Like
 };
 
 
