@@ -33,7 +33,7 @@ inline void plasma(Context *context, CRGBPalette16 currentPalette) {            
 
 void PlasmaAnimation::loop(Context *context, CRGBPalette16 curPalette)
 {
-    EVERY_N_MILLISECONDS(50) {                                  // FastLED based non-blocking delay to update/display the sequence.
+    EVERY_N_MILLISECONDS(100) {                                  // FastLED based non-blocking delay to update/display the sequence.
         plasma(context, curPalette);
     }
 }

@@ -19,7 +19,7 @@ void Screen::updateScreen(Context *context)
     
     // 0123456789012345
     // A:10 AT:10 PT:10  
-    // BR:100  FPS:555
+    // BR:100  FPS:100
 
     lcd.setCursor(0, 0);
     currentMenu = context->currentMenu == MENU_ANIMATION ? ">" : "";

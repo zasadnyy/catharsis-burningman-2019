@@ -23,7 +23,7 @@ struct Context
     u_int8_t currentAnimationIndex;
     u_int8_t animationsCount;
     u_int8_t animationTimeout;
-    CEveryNSeconds animationTimer;
+    CEveryNMinutes animationTimer;
 
     u_int8_t currentPaletteIndex;
     u_int8_t palettesCount;

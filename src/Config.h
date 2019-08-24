@@ -14,7 +14,7 @@
 #define NUM_STRIPS 8
 #define NUM_LEDS NUM_LEDS_PER_STRIP * NUM_STRIPS
 
-#define ANIMATION_TIMEOUT 10 // Minutes
+#define ANIMATION_TIMEOUT 1 // Minutes
 #define MAX_ANIMATION_TIMEOUT 15
 
 #define PALETTES_TIMEOUT 20 // Seconds
@@ -22,16 +22,13 @@
 #define PALETTES_MAX_CHANGES 24
 #define PALETTE_TIMEOUT_STEP 10
 
-#define BRIGHTNESS 50
+#define BRIGHTNESS 255
 #define MAX_BRIGHTNESS 255
 #define ANIMATION_FADE_AMOUNT 2 // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
 #define BRIGHTNESS_STEP 10
 
-#define FPS 60
+#define FPS 500
 #define MAX_FPS 510 // The max FPS I could get from Teensy
 #define FPS_STEP 5
-
-// #define qsubd(x, b) ((x>b)?b:0)                               
-// #define qsuba(x, b) ((x>b)?x-b:0) 
 
 #endif /* CONFIG_H */

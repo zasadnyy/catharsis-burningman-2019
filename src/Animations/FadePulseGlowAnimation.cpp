@@ -6,7 +6,7 @@
 namespace Catharsis
 {
 
-int fadeAmount = 5;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
+int fadeAmount = 3;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
 int brightness = 0; 
 
 FadePulseGlowAnimation::FadePulseGlowAnimation() {}
@@ -17,12 +17,13 @@ inline void fadePulse(Context *context, CRGBPalette16 curPalette) {
     for(int i = 0; i < NUM_LEDS; i++ )
     {
         context->leds[i] = CRGB::Red;  // Set Color HERE!!!
-        context->leds[i].fadeLightBy(brightness);
     }
+
+    LEDS.setBrightness(brightness); 
 
     brightness = brightness + fadeAmount;
     // reverse the direction of the fading at the ends of the fade: 
-    if(brightness == 0 || brightness == 255)
+    if(brightness == 0 || brightness >= context->brightness)
     {
         fadeAmount = -fadeAmount ; 
     }    
@@ -30,7 +31,7 @@ inline void fadePulse(Context *context, CRGBPalette16 curPalette) {
 
 void FadePulseGlowAnimation::loop(Context *context, CRGBPalette16 curPalette)
 {
-    EVERY_N_MILLISECONDS(50) {                                  // FastLED based non-blocking delay to update/display the sequence.
+    EVERY_N_MILLISECONDS(100) {                                  // FastLED based non-blocking delay to update/display the sequence.
         fadePulse(context, curPalette);
     }
 

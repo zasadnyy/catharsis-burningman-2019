@@ -105,6 +105,10 @@ void loop()
     if (input != InputResolver::NONE)
     {
         InputResolver::updateContext(input, &context);
+        Screen::updateScreen(&context);    
+    }
+
+    EVERY_N_SECONDS(1) {
         Screen::updateScreen(&context);
     }
 
@@ -129,7 +133,6 @@ void loop()
     if (now - lastUpdate > updateIntervalMs) 
     {
         lastUpdate = now;
-
 
         if(inTransition) {
             LEDS.setBrightness(brightness); 

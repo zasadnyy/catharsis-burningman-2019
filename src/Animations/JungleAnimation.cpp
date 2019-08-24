@@ -30,7 +30,8 @@ inline void juggle_pal(Context *context, CRGBPalette16 curPalette) {            
   fadeToBlackBy(context->leds, NUM_LEDS, thisfade);
   
   for( int i = 0; i < numdots; i++) {
-    context->leds[beatsin16(thisbeat+i+numdots,0,NUM_LEDS)] += ColorFromPalette(curPalette, curhue , thisbright, LINEARBLEND);    // Munge the values and pick a colour from the palette
+    // context->leds[beatsin16(thisbeat+i+numdots,0,NUM_LEDS)] += ColorFromPalette(curPalette, curhue , thisbright, LINEARBLEND);    // Munge the values and pick a colour from the palette
+    context->leds[beatsin16(thisbeat+i+numdots,0,NUM_LEDS)] += CRGB::White;
     curhue += thisdiff;
   }
   

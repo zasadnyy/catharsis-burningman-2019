@@ -20,18 +20,18 @@ namespace Catharsis
 Animation* animations[] = {
     // new Animation(),
     // new TmpAnimation(),
-    // new BeatWaveAnimation(),
-    // new NewKittAnimation(),
-    // new FadePulseGlowAnimation(),
-    new NoiseAnimation(),
-    new JungleAnimation(),
-    // new MatrixAnimation(),
-    new PlasmaAnimation(),
-    // new Fire2012WithPalettesAnimation(),
-    new PalletCrossfadeAnimation(),
-    // new RainbowAnimation(),
+
+    new NewKittAnimation(), // good but too fast 3
+    new FadePulseGlowAnimation(), // 5
+    new BeatWaveAnimation(), // 4
+    new NoiseAnimation(), // 5
+    new JungleAnimation(), // Sparkles? 5
+    new MatrixAnimation(), // only one line?? // 3
+    new PlasmaAnimation(), // 5
+    new PalletCrossfadeAnimation(), // 5
+    new RainbowAnimation(), // 5
+
     // new LineNumbersAnimation(),
-    // new FireAnimation()
 };
 }
 
