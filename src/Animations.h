@@ -1,34 +1,38 @@
-#include <FastLED.h>
-
 #ifndef ANIMATIONS_H
+#define ANIMATIONS_H
 
-TBlendType    currentBlending = LINEARBLEND;
+#include "Animations/RainbowAnimation.h"
+#include "Animations/LineNumbersAnimation.h"
+#include "Animations/FireAnimation.h"
+#include "Animations/PlasmaAnimation.h"
+#include "Animations/TmpAnimation.h"
+#include "Animations/PalletCrossfadeAnimation.h"
+#include "Animations/Fire2012WithPalettesAnimation.h"
+#include "Animations/BeatWaveAnimation.h"
+#include "Animations/FadePulseGlowAnimation.h"
+#include "Animations/NewKittAnimation.h"
+#include "Animations/JungleAnimation.h"
+#include "Animations/MatrixAnimation.h"
+#include "Animations/NoiseAnimation.h"
 
-CRGB* beatwave(CRGBPalette16 currentPalette) {
-  static CRGB leds[NUM_STRIPS * NUM_LEDS_PER_STRIP];
-  
-  uint8_t wave1 = beatsin8(9, 0, 255);                        // That's the same as beatsin8(9);
-  uint8_t wave2 = beatsin8(8, 0, 255);
-  uint8_t wave3 = beatsin8(7, 0, 255);
-  uint8_t wave4 = beatsin8(6, 0, 255);
-
-  for (int i=0; i<NUM_LEDS; i++) {
-    leds[i] = ColorFromPalette( currentPalette, i+wave1+wave2+wave3+wave4, 255, currentBlending); 
-  }
-  return leds;
+namespace Catharsis
+{
+Animation* animations[] = {
+    // new Animation(),
+    // new TmpAnimation(),
+    // new BeatWaveAnimation(),
+    // new NewKittAnimation(),
+    new FadePulseGlowAnimation(),
+    // new NoiseAnimation(),
+    new JungleAnimation(),
+    // new MatrixAnimation(),
+    // new PlasmaAnimation(),
+    // new Fire2012WithPalettesAnimation(),
+    new PalletCrossfadeAnimation(),
+    // new RainbowAnimation(),
+    // new LineNumbersAnimation(),
+    // new FireAnimation()
+};
 }
-
-CRGB* palletCrossfade(CRGBPalette16 currentPalette) {
-  static CRGB leds[NUM_STRIPS * NUM_LEDS_PER_STRIP];
-
-  int colorIndex = 1;
-  for (int i=0; i<NUM_LEDS; i++) {
-    leds[i] = ColorFromPalette(currentPalette, colorIndex + sin8(i*16), 255);
-    colorIndex += 3;
-  }
-  return leds;
-}
-  
-
 
 #endif

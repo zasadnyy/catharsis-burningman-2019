@@ -16,24 +16,38 @@ void Screen::updateScreen(Context *context)
     lcd.clear();
 
     String currentMenu = "";
+    
+    // 0123456789012345
+    // A:10 AT:10 PT:10  
+    // BR:100  FPS:555
 
     lcd.setCursor(0, 0);
     currentMenu = context->currentMenu == MENU_ANIMATION ? ">" : "";
-    lcd.print(currentMenu + "Animation " + String(context->currentAnimation));
+    lcd.print(currentMenu + "A:" + String(context->currentAnimationIndex));
 
-    // Serial.println(String(currentMenu + "Animation " + String(context->currentAnimation)));
+
+    lcd.setCursor(5, 0);
+    currentMenu = context->currentMenu == MENU_ANIMATION_TIMEOUT ? ">" : "";
+    lcd.print(currentMenu + "AT:" + String(context->animationTimeout));
+
+
+    lcd.setCursor(11, 0);
+    currentMenu = "";
+    if (context->currentMenu == MENU_PALETTE_TIMEOUT) {
+        lcd.setCursor(10, 0);
+        currentMenu = ">";
+    }
+    lcd.print(currentMenu + "PT:" + String(context->paletteTimeout));
+
 
     lcd.setCursor(0, 1);
     currentMenu = context->currentMenu == MENU_BRIGHTNESS ? ">" : "";
     lcd.print(currentMenu + "BR:" + String(context->brightness));
 
-    // Serial.println(currentMenu + "BR: " + String(context->brightness));
 
     lcd.setCursor(8, 1);
     currentMenu = context->currentMenu == MENU_FPS ? ">" : "";
     lcd.print(currentMenu + "FPS:" + String(LEDS.getFPS()));
-
-    // Serial.println(currentMenu + "FPS: " + String(context->fps) + "(" + LEDS.getFPS() + ")");
 }
 
 } // namespace Catharsis

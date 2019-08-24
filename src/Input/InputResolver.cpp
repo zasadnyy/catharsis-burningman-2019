@@ -55,7 +55,7 @@ void InputResolver::changeMenuValue(Context *context, int8_t increment)
 
     case MENU_ANIMATION:
     {
-        int newIndex = context->currentAnimation + increment;
+        int newIndex = context->currentAnimationIndex + increment;
         if (newIndex < 0)
         {
             newIndex = context->animationsCount - 1;
@@ -64,21 +64,49 @@ void InputResolver::changeMenuValue(Context *context, int8_t increment)
         {
             newIndex = 0;
         }
-        context->currentAnimation = newIndex;
+        context->currentAnimationIndex = newIndex;
         clearLeds(context);
 
+        break;
+    }
+    case MENU_ANIMATION_TIMEOUT:
+    {
+        int newTimeout = context->animationTimeout + increment;
+        if (newTimeout < 1)
+        {
+            newTimeout = MAX_ANIMATION_TIMEOUT;
+        }
+        else if (newTimeout >= MAX_ANIMATION_TIMEOUT)
+        {
+            newTimeout = 1;
+        }
+        context->animationTimeout = newTimeout;
+        break;
+    }
+    case MENU_PALETTE_TIMEOUT:
+    {
+        int newTimeout = context->paletteTimeout + increment * PALETTE_TIMEOUT_STEP;
+        if (newTimeout < 10)
+        {
+            newTimeout = MAX_PALETTE_TIMEOUT;
+        }
+        else if (newTimeout >= MAX_PALETTE_TIMEOUT)
+        {
+            newTimeout = 10;
+        }
+        context->paletteTimeout = newTimeout;
         break;
     }
     case MENU_BRIGHTNESS:
     {
         int newValue = context->brightness + increment * BRIGHTNESS_STEP;
-        if (newValue < 0)
+        if (newValue < 10)
         {
             newValue = MAX_BRIGHTNESS;
         }
         else if (newValue >= MAX_BRIGHTNESS)
         {
-            newValue = 0;
+            newValue = 10;
         }
         context->brightness = newValue;
         break;

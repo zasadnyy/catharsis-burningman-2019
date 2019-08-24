@@ -6,9 +6,6 @@
 namespace Catharsis
 {
 
-#define BRIGHTNESS_STEP 10
-#define FPS_STEP 5
-
 class InputResolver
 {
 public:
