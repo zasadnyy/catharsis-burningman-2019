@@ -56,11 +56,11 @@ VS Code is a full-featured IDE,  with a combination of Platform IO plugin allow 
 
 ## Credits
 
-@zasadnyy LED panel prototype, controller hardware assemble and software architecture.
+[@vzasadnyyy](http://github.com/zasadnyy) LED panel prototype, controller hardware assemble and software architecture.
 
-@ozasadnyy Animations and final software.
+[@ozasadnyy](http://github.com/ozasadnyy) Animations and final software.
 
-@eolexe Invaluable help to build the final 17m long LED panel.
+[@eolexe](http://github.com/eolexe) Invaluable help to build the final 17m long LED panel.
 
 ## Licence
 
