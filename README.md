@@ -20,8 +20,6 @@ The repository contains the software to run animations and control LED panel.
 
 ## Power Calculation
 
-![Wings](img/wings_blueprint.png)
-
 We had 8 parallel lines of LEDs, each ~17m long, **140m of LED strip or 4200 pixels in total**.
 
 LED strip consumes 9W per meter of strip ⇒ **1260W (or 105A) peak load**.
