@@ -14,7 +14,7 @@
 #define NUM_STRIPS 8
 #define NUM_LEDS NUM_LEDS_PER_STRIP * NUM_STRIPS
 
-#define ANIMATION_TIMEOUT 1 // Minutes
+#define ANIMATION_TIMEOUT 5 // Minutes
 #define MAX_ANIMATION_TIMEOUT 15
 
 #define PALETTES_TIMEOUT 20 // Seconds
