@@ -64,4 +64,4 @@ VS Code is a full-featured IDE,  with a combination of Platform IO plugin allow 
 
 ## Licence
 
-The project is published under the MIT Licence. Feel free to copy, distribute, use for commercial purposes; just keep the authors in credits.
+The project is published under the [MIT License](LICENSE). Feel free to copy, distribute, use for commercial purposes; just keep the authors in credits.
