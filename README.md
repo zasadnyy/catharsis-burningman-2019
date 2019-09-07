@@ -62,6 +62,6 @@ VS Code is a full-featured IDE,  with a combination of Platform IO plugin allow 
 
 [@eolexe](http://github.com/eolexe) Invaluable help to build the final 17m long LED panel.
 
-## Licence
+## License
 
 The project is published under the [MIT License](LICENSE). Feel free to copy, distribute, use for commercial purposes; just keep the authors in credits.
