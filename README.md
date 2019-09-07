@@ -1,5 +1,4 @@
-*I had zero knowledge about the Arduino and programmable LEDs before this project and had to spend tons of time looking for the information. For anyone who'll decide to start a similar project I've structured project and README to be a starting point.* 
-
+>*I had zero knowledge about the Arduino and programmable LEDs before this project and had to spend tons of time looking for the information. For anyone who'll decide to start a similar project I've structured project and README to be a starting point.* 
 *Have fun and build sth awesome 🦋*
 
 ## What is Catharsis
